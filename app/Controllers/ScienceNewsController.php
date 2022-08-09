@@ -7,7 +7,7 @@ use App\Services\ShowTodayNamesService;
 use App\Services\ShowWeatherTodayService;
 use App\View;
 
-class SportsNewsController
+class ScienceNewsController
 {
     private array $articles;
     private array $weatherData;
@@ -15,7 +15,7 @@ class SportsNewsController
 
     public function __construct(
         ShowAllCategoryArticlesService $articles, ShowWeatherTodayService $weather, ShowTodayNamesService $todayNames) {
-        $this->articles = $articles->getAll('sports');
+        $this->articles = $articles->getAll('science');
         $this->weatherData = $weather->getWeather();
         $this->todayNames = $todayNames->getTodayNames();
     }
@@ -24,11 +24,10 @@ class SportsNewsController
     {
         return new View('news-view.twig', [
             'newsArticles' => $this->articles,
-            'pageTitle' => 'Sports',
+            'pageTitle' => 'Zinātne',
             'weatherAndTime' => $this->weatherData,
             'names' => $this->todayNames
         ]);
     }
+
 }
-
-

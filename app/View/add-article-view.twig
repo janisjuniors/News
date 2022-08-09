@@ -7,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ pageTitle }}</title>
     <link rel = "icon" href ="https://cdn-icons-png.flaticon.com/512/831/831311.png?w=740">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" type="text/css" >
-
     <style>
-        {{ source('styles.css') }}
+        {{ source('Styles/header.css') }}
+        {{ source('Styles/styles.css') }}
+        {{ source('Styles/footer.css') }}
 
         .form-container {
-            padding: 100px 0;
+            padding: 50px 0;
         }
 
         .form {
@@ -25,10 +25,6 @@
             box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
             border: 0;
             border-radius: 15px;
-        }
-
-        .form:hover {
-            transform: scale(1.01);
         }
 
         .form-container {
@@ -63,126 +59,120 @@
             font-weight: bold;
         }
 
-        .category-container {
-            padding-bottom: 50px;
-        }
-
-        .submit-button-category {
-            margin-top: 10px;
-        }
-
     </style>
 
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <div class="row middle-xs">
-            <div class="col-xs-2">
+    <div class="info-container">
+        <div class="weather-time-container">
+            <span>{{ "now"|date("m.d.Y") }}</span>
+            <span>{{ names }}</span>
+            <div class="weather-container">
+                <span>Cēsis, Latvija</span>
+                <div class="weather-temp-container">
+                    <img class="weatherIcon" src="{{ weatherAndTime[1] }}" alt="weathericon">
+                    <span>{{ weatherAndTime[0] }}°C</span>
+                </div>
+            </div>
+            <div class="social-icon-container">
+                <img class="social-media-icon"
+                     src="https://cdn1.iconfinder.com/data/icons/social-media-rounded-corners/512/Rounded_Facebook_svg-512.png" alt="social media icon">
+                <img class="social-media-icon"
+                     src="https://cdn1.iconfinder.com/data/icons/social-media-rounded-corners/512/Rounded_Linkedin2_svg-512.png" alt="social media icon">
+                <img class="social-media-icon"
+                     src="https://cdn1.iconfinder.com/data/icons/social-media-rounded-corners/512/Rounded_Instagram_svg-512.png" alt="social media icon">
+                <img class="social-media-icon"
+                     src="https://cdn1.iconfinder.com/data/icons/social-media-rounded-corners/512/Rounded_Youtube3_svg-512.png" alt="social media icon">
+                <img class="social-media-icon"
+                     src="https://cdn1.iconfinder.com/data/icons/social-media-rounded-corners/512/Rounded_Twitter5_svg-512.png" alt="social media icon">
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="nav-container">
                 <a href="http://localhost:8080">
                     <img class="logo" src="https://cdn-icons-png.flaticon.com/512/831/831311.png?w=740" alt="logo">
                 </a>
-            </div>
+                <nav class="nav">
+                    <a href="http://localhost:8080/bizness" class="nav_item">
+                        Bizness
+                    </a>
 
-            <div class="col-xs-10">
+                    <a href="http://localhost:8080/sports" class="nav_item">
+                        Sports
+                    </a>
 
-                <div class="row">
-                    <div class="col-xs-12">
-                        <nav class="nav">
-                            <a href="http://localhost:8080/bizness" class="nav_item">
-                                Bizness
-                            </a>
+                    <a href="http://localhost:8080/izklaide" class="nav_item">
+                        Izklaide
+                    </a>
 
-                            <a href="http://localhost:8080/sports" class="nav_item">
-                                Sports
-                            </a>
+                    <a href="http://localhost:8080/zinatne" class="nav_item">
+                        Zinātne
+                    </a>
 
-                            <a href="http://localhost:8080/izklaide" class="nav_item">
-                                Izklaide
-                            </a>
+                    <a href="http://localhost:8080/veseliba" class="nav_item">
+                        Veselība
+                    </a>
 
-                            <a href="http://localhost:8080/tehnologijas" class="nav_item">
-                                Tehnoloģijas
-                            </a>
+                    <a href="http://localhost:8080/lietotaja-raksti/pievieno-rakstu" class="nav_item">
+                        Pievieno rakstu
+                    </a>
 
-                            <a href="http://localhost:8080/par-mums" class="nav_item">
-                                Par mums
-                            </a>
-
-                            <a href="http://localhost:8080/kontakti" class="nav_item">
-                                Kontakti
-                            </a>
-
-                            <a href="http://localhost:8080/lietotaja-raksti/add" class="nav_item">
-                                Pievieno rakstu
-                            </a>
-
-                            <a href="http://localhost:8080/lietotaja-raksti" class="nav_item">
-                                Lietotāju raksti
-                            </a>
-                        </nav>
-                    </div>
-                </div>
+                    <a href="http://localhost:8080/lietotaja-raksti" class="nav_item">
+                        Lietotāju raksti
+                    </a>
+                </nav>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<section>
-    <div class="container">
-        <div class="form-container">
-            <form method="post" action="{{ postAction }}">
-                <label>
-                    Virsraksts
-                    <input class="form form-title" type="text" name="title"/>
-                </label>
-                <label>
-                    Apraksts
-                    <textarea class="form description-form" name="description"></textarea>
-                </label>
-                <label>
-                    Saite
-                    <input class="form form-url" type="text" name="url">
-                </label>
-                <label>
-                    Attēla saite
-                    <input class="form form-img-url" type="text" name="img-url"/>
-                </label>
-                <button type="submit" class="submit-button">
-                    Pievieno rakstu
-                </button>
-            </form>
+    <section>
+        <div class="container">
+            <div class="form-container">
+                <form method="post" action="{{ postAction }}">
+                    <label>
+                        Virsraksts
+                        <input class="form form-title" type="text" name="title"/>
+                    </label>
+                    <label>
+                        Apraksts
+                        <textarea class="form description-form" name="description"></textarea>
+                    </label>
+                    <label>
+                        Saite
+                        <input class="form form-url" type="text" name="url">
+                    </label>
+                    <label>
+                        Attēla saite
+                        <input class="form form-img-url" type="text" name="img-url"/>
+                    </label>
+                    <button type="submit" class="submit-button">
+                        Pievieno rakstu
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<footer>
-    <div class="container">
-        <div class="row center-xs">
-            <div class="col-xs-12">
-                <div class="footer">
-                    <span class="footer__item">AS ZIŅAS</span>
-                    <span class="footer__item">Piemēra iela 4-8, Rīga, LV-1004</span>
-                    <span class="footer__item">+371 12345678</span>
-                    <span class="footer__item">piemers@zinas.lv</span>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-data">
+                <div class="footer-desc">
+                    <span>AS ZIŅAS</span>
+                    <span>Piemēra iela 4-8, Rīga, LV-1004</span>
+                    <span>+371 12345678</span>
+                    <span>piemers@zinas.lv</span>
                 </div>
 
                 <div class="copyright">
-                    <div class="container">
-                        <div class="row center-xs">
-                            <div class="col-xs-12">
-                                <span class="copyright_desc">Izstrādāja: Jānis Šņoriņš</span>
-                            </div>
-                        </div>
-                    </div>
+                    <span class="copyright_desc">Izstrādāja: Jānis Šņoriņš</span>
                 </div>
-
             </div>
         </div>
-    </div>
-</footer>
-
+    </footer>
 
 </body>
 </html>

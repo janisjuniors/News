@@ -8,35 +8,44 @@ class UserArticleDataRepository
 {
     public function getNewsArticleCollection(): array
     {
-        $str = file_get_contents('app/Services/article-data.csv');
-
-        $data = explode("\n", $str);
-        $keys = explode(",", array_shift($data));
-        $new = [];
-
-        if (count($data) > 0) {
-            foreach ($data as $line) {
-                $new[] = array_combine($keys, explode("|||", $line));
-            }
-        }
+        $connectionParams = [
+            'dbname' => 'news_page',
+            'user' => 'userj',
+            'password' => '2085',
+            'host' => 'localhost',
+            'driver' => 'pdo_mysql',
+        ];
+        $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
+        $articlesSQL = $conn->fetchAllAssociative('SELECT * FROM articles');
 
         $articles = [];
-        foreach($new as $userArticle){
+        foreach($articlesSQL as $userArticle){
             array_unshift($articles, new NewsArticle(
                 $userArticle['title'],
                 $userArticle['description'],
                 $userArticle['url'],
-                $userArticle['img-url'],
+                $userArticle['img_url'],
             ));
         }
-
         return $articles;
     }
 
     public function save(NewsArticle $article): void
     {
-        $file = fopen('app/Services/article-data.csv', 'a');
-        fwrite($file, "\n{$article->getTitle()}|||{$article->getDescription()}|||{$article->getUrl()}|||{$article->getImageUrl()}");
-        fclose($file);
+        $connectionParams = [
+            'dbname' => 'news_page',
+            'user' => 'userj',
+            'password' => '2085',
+            'host' => 'localhost',
+            'driver' => 'pdo_mysql',
+        ];
+        $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
+
+        $conn->insert('articles', [
+            'title' => $article->getTitle(),
+            'description' => $article->getDescription(),
+            'url' => $article->getUrl(),
+            'img_url' => $article->getImageUrl()
+        ]);
     }
 }

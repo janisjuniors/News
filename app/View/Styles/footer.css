@@ -1,0 +1,27 @@
+.footer {
+    display: flex;
+}
+
+.footer-data {
+    color: #900C3F;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.footer-data:hover {
+    cursor: default;
+}
+
+.footer-desc {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.copyright {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}

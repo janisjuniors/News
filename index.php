@@ -15,12 +15,11 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/lietotaja-raksti/pievieno-rakstu', 'App\Controllers\UserArticlesController@create');
     $r->addRoute('POST', '/lietotaja-raksti/add', 'App\Controllers\UserArticlesController@add');
 
+    $r->addRoute('GET', '/zinatne', 'App\Controllers\ScienceNewsController@show');
+    $r->addRoute('GET', '/veseliba', 'App\Controllers\HealthNewsController@show');
     $r->addRoute('GET', '/sports', 'App\Controllers\SportsNewsController@show');
     $r->addRoute('GET', '/bizness', 'App\Controllers\BusinessNewsController@show');
     $r->addRoute('GET', '/izklaide', 'App\Controllers\EntertainmentNewsController@show');
-    $r->addRoute('GET', '/tehnologijas', 'App\Controllers\TechnologyNewsController@show');
-    $r->addRoute('GET', '/par-mums', 'App\Controllers\AboutUsController@show');
-    $r->addRoute('GET', '/kontakti', 'App\Controllers\ContactsController@show');
 });
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];

@@ -18,7 +18,7 @@ class NewsAPIArticleRepository implements ArticleRepository
             'query' => [
                 'country' => 'lv',
                 'category' => $category,
-                'apiKey' => $_ENV['API_KEY']
+                'apiKey' => $_ENV['API_KEY_NEWS']
             ]
         ]);
 
@@ -26,24 +26,15 @@ class NewsAPIArticleRepository implements ArticleRepository
 
         $articles = [];
         foreach ($news->articles as $article) {
-            $imgURl = $article->urlToImage;
-            if ($article->urlToImage === null) {
-                $imgURl = 'https://its.fsu.edu/sites/g/files/upcbnu1011/files/ITS%20Website/no-image-available.png';
+            if ($article->urlToImage) {
+                $articles[] = new NewsArticle(
+                    (string)$article->title,
+                    (string)$article->description,
+                    (string)$article->url,
+                    (string)$article->urlToImage
+                );
             }
-
-            $articles[] = new NewsArticle(
-                (string)$article->title,
-                (string)$article->description,
-                (string)$article->url,
-                (string)$imgURl
-            );
         }
-
         return $articles;
-    }
-
-    public function save(NewsArticle $article): void
-    {
-
     }
 }
